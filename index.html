@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ехамрӏе.com — これは example.com ではありません</title>
+<meta name="description" content="example.com のそっくりさんを取ろうとして、うっかり全部キリル文字のドメインを買ってしまった話。">
+<style>
+  :root {
+    --bg: #fbf8f3; --fg: #23201c; --muted: #6f675d; --card: #ffffff;
+    --line: #e7dfd3; --accent: #c2410c; --accent-soft: #fde8dc; --latin: #1d4ed8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1916; --fg: #eee8df; --muted: #a59c90; --card: #25221e;
+      --line: #3a352f; --accent: #fb923c; --accent-soft: #3b2417; --latin: #93b4ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.8 system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  }
+  main { max-width: 680px; margin: 0 auto; padding: 56px 16px 72px; }
+  .badge {
+    display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .04em;
+    color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 12px;
+  }
+  h1 { font-size: clamp(34px, 9vw, 56px); line-height: 1.1; margin: 16px 0 8px; letter-spacing: -.01em; }
+  h1 small { display: block; font-size: 17px; font-weight: 500; color: var(--muted); margin-top: 12px; letter-spacing: 0; }
+  h2 { font-size: 20px; margin: 48px 0 8px; }
+  p { margin: 0 0 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
+  .chars { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; margin: 8px 0 4px; }
+  .chars div { border: 1px solid var(--line); border-radius: 10px; padding: 8px 0 6px; }
+  .chars b { display: block; font-size: 28px; line-height: 1.2; font-weight: 500; }
+  .chars span { display: block; font: 11px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+  .chars .latin { border-color: var(--latin); }
+  .chars .latin b, .chars .latin span { color: var(--latin); }
+  .caption { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+  code { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--accent-soft); border-radius: 6px; padding: 1px 6px; }
+  ol { padding-left: 1.4em; margin: 0 0 14px; }
+  li { margin: 4px 0; }
+  .verdict { font-size: 18px; font-weight: 600; }
+  footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <span class="badge">無駄に買ったドメイン</span>
+  <h1>ехамрӏе.com
+    <small>example.com ではありません。よく似た何かです。</small></h1>
+
+  <p>ようこそ。ここは <strong>example.com のそっくりさん</strong>になるはずだったドメインです。
+  ラテン文字は1文字も入っていません。7文字すべてキリル文字です。</p>
+
+  <div class="card">
+    <div class="chars" aria-label="このドメインの7文字">
+      <div><b>е</b><span>U+0435</span></div>
+      <div><b>х</b><span>U+0445</span></div>
+      <div><b>а</b><span>U+0430</span></div>
+      <div><b>м</b><span>U+043C</span></div>
+      <div><b>р</b><span>U+0440</span></div>
+      <div><b>ӏ</b><span>U+04CF</span></div>
+      <div><b>е</b><span>U+0435</span></div>
+    </div>
+    <p class="caption">ちなみに真ん中の <b>м</b> は M の小文字ではなく、キリル文字の「エム」。だからよく見ると「exa<b>м</b>ple」になっています。惜しい。</p>
+  </div>
+
+  <h2>何が起きたのか</h2>
+  <ol>
+    <li>本当に欲しかったのは、<code>m</code> だけ本物のラテン文字にした <strong>ехаmрӏе.com</strong>。これなら見た目は完全に example.com です。</li>
+    <li>AWS で買おうとしたらエラー。Spaceship でもエラー。お店が悪いのではなさそう。</li>
+    <li>犯人はたぶん<strong>文字種の混在</strong>。ドメインの1ラベルにキリル文字とラテン文字を混ぜるのは、なりすまし対策でレジストリが受け付けません。正しい。とても正しい。</li>
+    <li>「じゃあ全部キリル文字ならどうだ」と、試しに買ってみた。</li>
+    <li>買えた。</li>
+  </ol>
+
+  <div class="card" aria-label="比較">
+    <div class="chars">
+      <div><b>е</b><span>Cyrl</span></div>
+      <div><b>х</b><span>Cyrl</span></div>
+      <div><b>а</b><span>Cyrl</span></div>
+      <div class="latin"><b>m</b><span>Latn</span></div>
+      <div><b>р</b><span>Cyrl</span></div>
+      <div><b>ӏ</b><span>Cyrl</span></div>
+      <div><b>е</b><span>Cyrl</span></div>
+    </div>
+    <p class="caption">取りたかった方。青い1文字だけラテン文字で、これが混ざっているせいで登録できません。</p>
+  </div>
+
+  <h2>で、何に使うの？</h2>
+  <p class="verdict">特に使い道はありません。</p>
+  <p>強いて言えば、このページを載せていることと、メールが届くことくらい。
+  ブラウザによってはアドレスバーに <code>xn--80ajb1au1a38g.com</code> と表示されるので、本人ですら「どこだっけ」となります。
+  ホモグラフ対策はちゃんと効いている、という確認にはなりました。</p>
+
+  <h2>念のため</h2>
+  <p>本物の example.com は IANA が説明用に予約しているドメインで、ここはそれとは何の関係もありません。
+  誰かのふりをする予定もありません。ただの、ちょっとした出費の記念碑です。</p>
+
+  <footer>
+    ехамрӏе.com（<code>xn--80ajb1au1a38g.com</code>）· 自動更新は今のところオン。来年の自分がどう判断するかは不明。
+  </footer>
+</main>
+</body>
+</html>
